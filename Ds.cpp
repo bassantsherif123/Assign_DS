@@ -152,6 +152,7 @@ int insertionSort(vector<T> &v, bool GPA){
             comparisons++;
         v[j + 1] = tmp;
     }
+    cout << "Number of comparisons: " << comparisons << endl;
     return comparisons;
 }
 //_____________________________________
@@ -176,7 +177,7 @@ int shellSort(vector<T>& v, bool GPA) {
         }
         
     }
-
+    cout << "Number of comparisons: " << comparisons << endl;
     return comparisons;
 }
 
