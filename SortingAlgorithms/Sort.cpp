@@ -38,6 +38,29 @@ public:
 int comparison;
 
 //_____________________________________
+// 1. Insertion Sort
+template <typename T>
+int insertionSort(vector<T> &v, bool GPA){
+    int length = v.size();
+    int comparisons = 0;
+    for (int i = 1; i < length; i++) {
+        comparisons++;
+        T tmp = v[i];
+        int j = i - 1;
+        while (j >= 0 && ((GPA && tmp > v[j]) || (!GPA && tmp < v[j]))) {
+            comparisons++;
+            v[j + 1] = v[j];
+            j--;
+        }
+        if (j >= 0)
+            comparisons++;
+        v[j + 1] = tmp;
+    }
+//    cout << "Number of comparisons: " << comparisons << endl;
+    return comparisons;
+}
+
+//_____________________________________
 // 3. Bubble Sort
 template<typename T>
 void BubbleSort(vector<T>&arr, bool GPA){
@@ -48,10 +71,8 @@ void BubbleSort(vector<T>&arr, bool GPA){
         for(int i=0;i<n;i++){
             //A Loop without the ordered elements
             for(int j=0;j<n-i-1;j++){
-//                comparison++;
                 //Put the greater elements in the start
-                if(arr[j+1]>arr[j]){
-                    comparison++;
+                if(++comparison, arr[j+1]>arr[j]){
                     swap(arr[j],arr[j+1]);
                     flag=false;//To prove that it's not ordered
                 }
@@ -68,8 +89,7 @@ void BubbleSort(vector<T>&arr, bool GPA){
             //A Loop without the ordered elements
             for(int j=0;j<n-i-1;j++){
                 //Put the smaller elements in the start
-                if(arr[j+1]<arr[j]){
-                    comparison++;
+                if(++comparison, arr[j+1]<arr[j]){
                     swap(arr[j],arr[j+1]);
                     flag=false;//To prove that it's not ordered
                 }
@@ -79,6 +99,31 @@ void BubbleSort(vector<T>&arr, bool GPA){
         }
     }
 
+}
+//_____________________________________
+// 4. Shell Sort
+template<typename T>
+int shellSort(vector<T>& v, bool GPA) {
+    int length = v.size();
+    int comparisons = 0;
+
+    for (int gap = length / 2; gap > 0; gap /= 2,comparisons++) {
+        for (int i = gap; i < length; i++,comparisons++) {
+            T tmp = v[i];
+            int j = i;
+
+            while (j >= gap && ((GPA && tmp > v[j - gap]) || (!GPA && tmp < v[j - gap]))) {
+                comparisons++;
+                v[j] = v[j - gap];
+                j -= gap;
+                if (j >= gap) comparisons++;
+                v[j] = tmp;
+            }
+        }
+
+    }
+//    cout << "Number of comparisons: " << comparisons << endl;
+    return comparisons;
 }
 
 //_____________________________________
@@ -95,12 +140,10 @@ void Merge(vector<T>&v, int begin, int middle, int end, bool GPA){
     // Put data in the temporary vectors
     for(int i = 0; i < FirstSubSize; i++){
         FirstSub.push_back(v[begin + i]);
-        comparison++;
     }
 
     for(int i = 0; i < SecondSubSize; i++){
         SecondSub.push_back(v[middle + 1 + i]);
-        comparison++;
     }
 
     int idxFirstSub = 0, idxSecondSub = 0, idxMerge = begin;
@@ -108,27 +151,25 @@ void Merge(vector<T>&v, int begin, int middle, int end, bool GPA){
     // Merge Temporary vectors
     while(idxFirstSub < FirstSubSize
           && idxSecondSub < SecondSubSize){
+        // 2 comparisons for each loop despite it gives true or false
         if((GPA && (FirstSub[idxFirstSub] >= SecondSub[idxSecondSub]))
            || (!GPA && (FirstSub[idxFirstSub] <= SecondSub[idxSecondSub])) ){
             v[idxMerge++] = FirstSub[idxFirstSub++];
-            comparison++;
         }
         else {
             v[idxMerge++] = SecondSub[idxSecondSub++];
-            comparison++;
         }
+        comparison += 2;
     }
 
     // Add if there are remaining elements in the first sub vector to the merged one
     while(idxFirstSub < FirstSubSize){
         v[idxMerge++] = FirstSub[idxFirstSub++];
-        comparison++;
     }
 
     // Add if there are remaining elements in the second sub vector to the merged one
     while(idxSecondSub < SecondSubSize){
         v[idxMerge++] = SecondSub[idxSecondSub++];
-        comparison++;
     }
 }
 
@@ -136,7 +177,6 @@ template<class T>
 void MergeSort(vector<T>&v, int begin, int end, bool GPA){
     // Base Case
     if (begin >= end){
-        comparison++;
         return;
     }
 
@@ -214,10 +254,20 @@ void Sort(){
         switch(SortingAlgo){
             case 1:
                 GPA << "Algorithm: Insertion Sort\n";
+                start = chrono::steady_clock::now();
+                GPA << "Number of comparisons: " << insertionSort(students, 1) << '\n';
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 OutGPA();
                 GPA << "//_________________________________\n";
 
                 Name << "Algorithm: Insertion Sort\n";
+                start = chrono::steady_clock::now();
+                Name << "Number of comparisons: " << insertionSort(students, 0) << '\n';
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 OutName();
                 Name << "//_________________________________\n";
                 break;
@@ -255,10 +305,20 @@ void Sort(){
                 break;
             case 4:
                 GPA << "Algorithm: Shell Sort\n";
+                start = chrono::steady_clock::now();
+                GPA << "Number of comparisons: " << shellSort(students, 1) << '\n';
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 OutGPA();
                 GPA << "//_________________________________\n";
 
                 Name << "Algorithm: Shell Sort\n";
+                start = chrono::steady_clock::now();
+                Name << "Number of comparisons: " << shellSort(students, 0) << '\n';
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 OutName();
                 Name << "//_________________________________\n";
                 break;
