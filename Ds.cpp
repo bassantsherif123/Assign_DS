@@ -133,6 +133,52 @@ void BubbleSort(vector<T>&arr, bool GPA){
   }
     
 }
+//_____________________________________
+//insertionsort
+template <typename T>
+int insertionSort(vector<T> &v, bool GPA){  
+    int length = v.size();
+    int comparisons = 0;
+    for (int i = 1; i < length; i++) {
+        comparisons++;
+        T tmp = v[i];
+        int j = i - 1;
+        while (j >= 0 && ((GPA && tmp > v[j]) || (!GPA && tmp < v[j]))) {
+            comparisons++;
+            v[j + 1] = v[j];
+            j--;
+        }
+        if (j >= 0)
+            comparisons++;
+        v[j + 1] = tmp;
+    }
+    return comparisons;
+}
+//_____________________________________
+//shellsort
+template<typename T>
+int shellSort(vector<T>& v, bool GPA) {
+    int length = v.size();
+    int comparisons = 0;
+
+    for (int gap = length / 2; gap > 0; gap /= 2,comparisons++) {
+        for (int i = gap; i < length; i++,comparisons++) {
+            T tmp = v[i];
+            int j = i;
+
+            while (j >= gap && ((GPA && tmp > v[j - gap]) || (!GPA && tmp < v[j - gap]))) {
+                comparisons++;
+                v[j] = v[j - gap];
+                j -= gap;
+                if (j >= gap) comparisons++;
+                v[j] = tmp;
+            }
+        }
+        
+    }
+
+    return comparisons;
+}
 
 //_____________________________________
 vector<Student> students;
