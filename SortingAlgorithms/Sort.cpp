@@ -32,12 +32,54 @@ public:
 };
 
 //_____________________________________
+// 3. Bubble Sort
+template<typename T>
+void BubbleSort(vector<T>&arr, bool GPA){
+    if(GPA){
+        int n=arr.size();
+        bool flag=true;
+        //Loop in the whole array
+        for(int i=0;i<n;i++){
+            //A Loop without the ordered elements
+            for(int j=0;j<n-i-1;j++){
+                //Put the greater elements in the start
+                if(arr[j+1]>arr[j]){
+                    swap(arr[j],arr[j+1]);
+                    flag=false;//To prove that it's not ordered
+                }
+            }
+            //To break and stop looping if the array is already sorted
+            if(flag)break;
+        }
+    }
+    else{
+        int n=arr.size();
+        bool flag=true;
+        //Loop in the whole array
+        for(int i=0;i<n;i++){
+            //A Loop without the ordered elements
+            for(int j=0;j<n-i-1;j++){
+                //Put the smaller elements in the start
+                if(arr[j+1]<arr[j]){
+                    swap(arr[j],arr[j+1]);
+                    flag=false;//To prove that it's not ordered
+                }
+            }
+            //To break and stop looping if the array is already sorted
+            if(flag)break;
+        }
+    }
+
+}
+
+//_____________________________________
 // 5. Merge sort
-void Merge(vector<Student>&v, int begin, int middle, int end, bool GPA){
+template<class T>
+void Merge(vector<T>&v, int begin, int middle, int end, bool GPA){
 
     // new temporary vectors for extra space
-    vector<Student> FirstSub;
-    vector<Student> SecondSub;
+    vector<T> FirstSub;
+    vector<T> SecondSub;
     int FirstSubSize = middle - begin + 1;
     int SecondSubSize = end - middle;
 
@@ -75,7 +117,8 @@ void Merge(vector<Student>&v, int begin, int middle, int end, bool GPA){
     }
 }
 
-void MergeSort(vector<Student>&v, int begin, int end, bool GPA){
+template<class T>
+void MergeSort(vector<T>&v, int begin, int end, bool GPA){
     // Base Case
     if (begin >= end){
         return;
@@ -93,8 +136,8 @@ void MergeSort(vector<Student>&v, int begin, int end, bool GPA){
     // Merge the two halves
     Merge(v, begin, middle, end, GPA);
 }
-//_____________________________________
 
+//_____________________________________
 vector<Student> students;
 
 // read from students.txt
@@ -141,6 +184,7 @@ int main() {
     Sort();
 }
 
+//________________________________
 void Sort(){
     // Start a counter with initial value that equals 0
     int SortingAlgo = 0;
@@ -154,7 +198,6 @@ void Sort(){
         switch(SortingAlgo){
             case 1:
                 GPA << "Algorithm: Insertion Sort\n";
-
                 OutGPA();
                 GPA << "//_________________________________\n";
 
@@ -167,18 +210,18 @@ void Sort(){
                 OutGPA();
                 GPA << "//_________________________________\n";
 
-
                 Name << "Algorithm: Selection Sort\n";
                 OutName();
                 Name << "//_________________________________\n";
                 break;
             case 3:
                 GPA << "Algorithm: Bubble Sort\n";
+                BubbleSort(students, 1);
                 OutGPA();
                 GPA << "//_________________________________\n";
 
-
                 Name << "Algorithm: Bubble Sort\n";
+                BubbleSort(students, 0);
                 OutName();
                 Name << "//_________________________________\n";
                 break;
@@ -186,7 +229,6 @@ void Sort(){
                 GPA << "Algorithm: Shell Sort\n";
                 OutGPA();
                 GPA << "//_________________________________\n";
-
 
                 Name << "Algorithm: Shell Sort\n";
                 OutName();
