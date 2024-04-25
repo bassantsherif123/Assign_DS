@@ -230,6 +230,7 @@ void Sort(){
                 end = chrono::steady_clock::now();
                 RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
                 Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
+                OutName();
                 Name << "//_________________________________\n";
                 break;
             case 4:
