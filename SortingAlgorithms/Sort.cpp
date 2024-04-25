@@ -190,8 +190,8 @@ void Sort(){
     int SortingAlgo = 0;
 
     // Declare variables to calculate running time of function
-    clock_t start, end;
-    double RunningTime;
+    auto start = chrono::steady_clock::now(), end = chrono::steady_clock::now();
+    auto RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
 
     while(++SortingAlgo){
         In();
@@ -216,13 +216,20 @@ void Sort(){
                 break;
             case 3:
                 GPA << "Algorithm: Bubble Sort\n";
+                start = chrono::steady_clock::now();
                 BubbleSort(students, 1);
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 OutGPA();
                 GPA << "//_________________________________\n";
 
                 Name << "Algorithm: Bubble Sort\n";
+                start = chrono::steady_clock::now();
                 BubbleSort(students, 0);
-                OutName();
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 Name << "//_________________________________\n";
                 break;
             case 4:
@@ -236,20 +243,20 @@ void Sort(){
                 break;
             case 5:
                 GPA << "Algorithm: Merge Sort\n";
-                start = clock();
+                start = chrono::steady_clock::now();
                 MergeSort(students, 0, students.size() - 1, 1);
-                end = clock();
-                RunningTime = double(end - start);
-                GPA << "Running time: " << RunningTime << " milliseconds\n";
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 OutGPA();
                 GPA << "//_________________________________\n";
 
                 Name << "Algorithm: Merge Sort\n";
-                start = clock();
+                start = chrono::steady_clock::now();
                 MergeSort(students, 0, students.size() - 1, 0);
-                end = clock();
-                RunningTime = double(end - start);
-                Name << "Running time: " << RunningTime << " milliseconds\n";
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 OutName();
                 Name << "//_________________________________\n";
                 break;
