@@ -29,7 +29,13 @@ public:
     void print(ofstream& outputFile){
         outputFile << name << '\n' << id << '\n' << gpa << "\n\n";
     }
+
+    void print(){
+        cout << name << '\n' << id << '\n' << gpa << "\n\n";
+    }
 };
+
+int comparison;
 
 //_____________________________________
 // 3. Bubble Sort
@@ -42,8 +48,10 @@ void BubbleSort(vector<T>&arr, bool GPA){
         for(int i=0;i<n;i++){
             //A Loop without the ordered elements
             for(int j=0;j<n-i-1;j++){
+//                comparison++;
                 //Put the greater elements in the start
                 if(arr[j+1]>arr[j]){
+                    comparison++;
                     swap(arr[j],arr[j+1]);
                     flag=false;//To prove that it's not ordered
                 }
@@ -61,6 +69,7 @@ void BubbleSort(vector<T>&arr, bool GPA){
             for(int j=0;j<n-i-1;j++){
                 //Put the smaller elements in the start
                 if(arr[j+1]<arr[j]){
+                    comparison++;
                     swap(arr[j],arr[j+1]);
                     flag=false;//To prove that it's not ordered
                 }
@@ -86,34 +95,40 @@ void Merge(vector<T>&v, int begin, int middle, int end, bool GPA){
     // Put data in the temporary vectors
     for(int i = 0; i < FirstSubSize; i++){
         FirstSub.push_back(v[begin + i]);
+        comparison++;
     }
 
     for(int i = 0; i < SecondSubSize; i++){
         SecondSub.push_back(v[middle + 1 + i]);
+        comparison++;
     }
 
     int idxFirstSub = 0, idxSecondSub = 0, idxMerge = begin;
 
     // Merge Temporary vectors
     while(idxFirstSub < FirstSubSize
-        && idxSecondSub < SecondSubSize){
+          && idxSecondSub < SecondSubSize){
         if((GPA && (FirstSub[idxFirstSub] >= SecondSub[idxSecondSub]))
-            || (!GPA && (FirstSub[idxFirstSub] <= SecondSub[idxSecondSub])) ){
+           || (!GPA && (FirstSub[idxFirstSub] <= SecondSub[idxSecondSub])) ){
             v[idxMerge++] = FirstSub[idxFirstSub++];
+            comparison++;
         }
         else {
             v[idxMerge++] = SecondSub[idxSecondSub++];
+            comparison++;
         }
     }
 
     // Add if there are remaining elements in the first sub vector to the merged one
     while(idxFirstSub < FirstSubSize){
         v[idxMerge++] = FirstSub[idxFirstSub++];
+        comparison++;
     }
 
     // Add if there are remaining elements in the second sub vector to the merged one
     while(idxSecondSub < SecondSubSize){
         v[idxMerge++] = SecondSub[idxSecondSub++];
+        comparison++;
     }
 }
 
@@ -121,6 +136,7 @@ template<class T>
 void MergeSort(vector<T>&v, int begin, int end, bool GPA){
     // Base Case
     if (begin >= end){
+        comparison++;
         return;
     }
 
@@ -216,19 +232,23 @@ void Sort(){
                 break;
             case 3:
                 GPA << "Algorithm: Bubble Sort\n";
+                comparison = 0;
                 start = chrono::steady_clock::now();
                 BubbleSort(students, 1);
                 end = chrono::steady_clock::now();
                 RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Number of comparisons: " << comparison << '\n';
                 GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 OutGPA();
                 GPA << "//_________________________________\n";
 
                 Name << "Algorithm: Bubble Sort\n";
+                comparison = 0;
                 start = chrono::steady_clock::now();
                 BubbleSort(students, 0);
                 end = chrono::steady_clock::now();
                 RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Number of comparisons: " << comparison << '\n';
                 Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 OutName();
                 Name << "//_________________________________\n";
@@ -244,17 +264,21 @@ void Sort(){
                 break;
             case 5:
                 GPA << "Algorithm: Merge Sort\n";
+                comparison = 0;
                 start = chrono::steady_clock::now();
                 MergeSort(students, 0, students.size() - 1, 1);
                 end = chrono::steady_clock::now();
                 RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Number of comparisons: " << comparison << '\n';
                 GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
                 OutGPA();
                 GPA << "//_________________________________\n";
 
                 Name << "Algorithm: Merge Sort\n";
+                comparison = 0;
                 start = chrono::steady_clock::now();
                 MergeSort(students, 0, students.size() - 1, 0);
+                Name << "Number of comparisons: " << comparison << '\n';
                 end = chrono::steady_clock::now();
                 RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
                 Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds" << "\n";
