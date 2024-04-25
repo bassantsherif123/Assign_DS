@@ -240,11 +240,12 @@ void Sort(){
         switch(SortingAlgo){
             case 1:
                 GPA << "Algorithm: Insertion Sort\n";
-
+                insertionSort(students,1);
                 OutGPA();
                 GPA << "//_________________________________\n";
 
                 Name << "Algorithm: Insertion Sort\n";
+                insertionSort(students,0);
                 OutName();
                 Name << "//_________________________________\n";
                 break;
@@ -272,11 +273,13 @@ void Sort(){
                 break;
             case 4:
                 GPA << "Algorithm: Shell Sort\n";
+                 shellSort(students,1);
                 OutGPA();
                 GPA << "//_________________________________\n";
 
 
                 Name << "Algorithm: Shell Sort\n";
+                 shellSort(students,0);
                 OutName();
                 Name << "//_________________________________\n";
                 break;
