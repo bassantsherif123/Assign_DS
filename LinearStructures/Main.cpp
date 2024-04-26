@@ -3,7 +3,8 @@
 #include "../LinearStructures/DoubleLinkedList.cpp"
 #include "../LinearStructures/CircularLinkedList.cpp"
 //#include "../LinearStructures/Stack.cpp"
-#include "../LinearStructures/Queue.cpp"
+// #include "../LinearStructures/Queue.cpp"
+#include "../LinearStructures/QueueList.cpp"
 using namespace std;
 
 int main() {
