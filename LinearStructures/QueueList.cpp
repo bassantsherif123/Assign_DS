@@ -95,15 +95,15 @@ T Queue<T>::firstElement(){
   }
 }
 
-int main(){
-  Queue<int>q;
-  q.enqueue(1);
-  q.enqueue(2);
-  q.enqueue(3);//q = {5,1,3}
-  cout<<"The size: "<<q.queueSize()<<'\n';//3 elements
-  cout<<"The first element is: "<<q.firstElement()<<'\n';//5 
-  cout<<"The removed element is: "<<q.dequeue()<<'\n';//5 removed
-  q.print();//1,3
-  q.clear();
-  q.print();//The list is empty
-}
+// int main(){
+//   Queue<int>q;
+//   q.enqueue(1);
+//   q.enqueue(2);
+//   q.enqueue(3);//q = {5,1,3}
+//   cout<<"The size: "<<q.queueSize()<<'\n';//3 elements
+//   cout<<"The first element is: "<<q.firstElement()<<'\n';//5 
+//   cout<<"The removed element is: "<<q.dequeue()<<'\n';//5 removed
+//   q.print();//1,3
+//   q.clear();
+//   q.print();//The list is empty
+// }
