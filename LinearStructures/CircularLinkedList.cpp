@@ -263,46 +263,46 @@ public:
         clear();
     }
 
-
 };
-int main() {
-    CircularLinkedList<int> myList;
 
-    myList.insertAtHead(1);
-    myList.insertAtHead(2);
-    myList.insertAtTail(3);
-    myList.insertAt(4, 1);
+// int main() {
+//     CircularLinkedList<int> myList;
 
-    myList.print(); // Output: 2 4 1 3
+//     myList.insertAtHead(1);
+//     myList.insertAtHead(2);
+//     myList.insertAtTail(3);
+//     myList.insertAt(4, 1);
 
-    myList.removeAt(2);
+//     myList.print(); // Output: 2 4 1 3
 
-    myList.print(); // Output: 2 4 3
+//     myList.removeAt(2);
 
-    myList.replaceAt(5, 1);
+//     myList.print(); // Output: 2 4 3
 
-    myList.print();
+//     myList.replaceAt(5, 1);
 
-    bool exists = myList.isExist(5);
-    cout << exists << endl;
+//     myList.print();
 
-    bool isEqual = myList.isItemAtEqual(3, 2);
-    cout << isEqual << endl;
-    cout << "Element at index 0: " << myList.retrieveAt(0) << endl;
+//     bool exists = myList.isExist(5);
+//     cout << exists << endl;
 
-    myList.swap(0, 1);
+//     bool isEqual = myList.isItemAtEqual(3, 2);
+//     cout << isEqual << endl;
+//     cout << "Element at index 0: " << myList.retrieveAt(0) << endl;
 
-    myList.print();
+//     myList.swap(0, 1);
 
-    bool empty = myList.isEmpty();
-    cout << empty << endl;
+//     myList.print();
 
-    int size = myList.linkedListSize();
-    cout << size << endl;
+//     bool empty = myList.isEmpty();
+//     cout << empty << endl;
 
-    myList.clear();
+//     int size = myList.linkedListSize();
+//     cout << size << endl;
 
-    myList.print();
+//     myList.clear();
 
-    return 0;
-}
+//     myList.print();
+
+//     return 0;
+// }
