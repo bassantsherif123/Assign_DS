@@ -1,27 +1,26 @@
 #include <iostream>
 using namespace std;
 
-template<typename T>
+template <typename T>
 class CircularLinkedList {
 private:
     class Node {
     public:
         T data;
-        Node* next;
+        Node *next;
 
-        Node(const T& element) : data(element), next(nullptr) {}
+        Node(const T &element) : data(element), next(nullptr) {}
     };
 
-    Node* head;
-    Node* tail;
+    Node *head;
+    Node *tail;
     int size;
-
 
 public:
     CircularLinkedList() : head(nullptr), size(0) {}
 
-    void insertAtHead(const T& element) {
-        Node* newNode = new Node(element);
+    void insertAtHead(const T &element) {
+        Node *newNode = new Node(element);
         if (head == nullptr) {
             head = tail = newNode;
             head->next = head;
@@ -33,11 +32,11 @@ public:
         ++size;
     }
 
-    void insertAtTail(const T& element) {
+    void insertAtTail(const T &element) {
         if (head == nullptr) {
             insertAtHead(element);
         } else {
-            Node* newNode = new Node(element);
+            Node *newNode = new Node(element);
             tail->next = newNode;
             newNode->next = head;
             tail = newNode;
@@ -45,8 +44,7 @@ public:
         }
     }
 
-
-    void insertAt(const T& element, int index) {
+    void insertAt(const T &element, int index) {
         if (index < 0 || index > size) {
             cerr << "Index given is out of range\n";
             return;
@@ -57,13 +55,13 @@ public:
         } else if (index == size) {
             insertAtTail(element);
         } else {
-            Node* prevNode = nullptr;
-            Node* currentNode = head;
+            Node *prevNode = nullptr;
+            Node *currentNode = head;
             for (int i = 0; i < index; ++i) {
                 prevNode = currentNode;
                 currentNode = currentNode->next;
             }
-            Node* newNode = new Node(element);
+            Node *newNode = new Node(element);
             newNode->next = currentNode;
             prevNode->next = newNode;
             ++size;
@@ -81,7 +79,7 @@ public:
             head = nullptr;
             tail = nullptr;
         } else {
-            Node* newHead = head->next;
+            Node *newHead = head->next;
             tail->next = newHead;
             delete head;
             head = newHead;
@@ -100,7 +98,7 @@ public:
             head = nullptr;
             tail = nullptr;
         } else {
-            Node* prevNode = head;
+            Node *prevNode = head;
             while (prevNode->next != tail) {
                 prevNode = prevNode->next;
             }
@@ -122,17 +120,16 @@ public:
         } else if (index == size - 1) {
             removeAtTail();
         } else {
-            Node* prevNode = head;
+            Node *prevNode = head;
             for (int i = 0; i < index - 1; ++i) {
                 prevNode = prevNode->next;
             }
-            Node* nodeToRemove = prevNode->next;
+            Node *nodeToRemove = prevNode->next;
             prevNode->next = nodeToRemove->next;
             delete nodeToRemove;
             --size;
         }
     }
-
 
     void swap(int firstItemIdx, int secondItemIdx) {
         if (firstItemIdx < 0 || firstItemIdx >= size || secondItemIdx < 0 || secondItemIdx >= size) {
@@ -146,45 +143,53 @@ public:
         if (firstItemIdx == secondItemIdx) {
             return; // No need to swap if the indices are the same
         }
-        Node* prevFirst = nullptr;
-        Node* firstNode = head;
+
+        // Ensure firstItemIdx is always less than secondItemIdx
+        if (firstItemIdx > secondItemIdx) {
+            swap(secondItemIdx, firstItemIdx);
+            return;
+        }
+
+        Node *prevFirst = nullptr;
+        Node *firstNode = head;
         for (int i = 0; i < firstItemIdx; ++i) {
             prevFirst = firstNode;
             firstNode = firstNode->next;
         }
 
-        Node* prevSecond = nullptr;
-        Node* secondNode = head;
+        Node *prevSecond = nullptr;
+        Node *secondNode = head;
         for (int i = 0; i < secondItemIdx; ++i) {
             prevSecond = secondNode;
             secondNode = secondNode->next;
         }
 
-        if (prevFirst != nullptr) {
-            prevFirst->next = secondNode;
-        } else {
-            head = secondNode;
-
-        }
-
-        if (prevSecond != nullptr) {
-            prevSecond->next = firstNode;
-        } else {
-            head = firstNode;
-
-        }
-        Node* temp = firstNode->next;
+        Node *temp = firstNode->next;
         firstNode->next = secondNode->next;
-        secondNode->next = temp;
+
+        if (secondNode == temp) {
+            secondNode->next = firstNode;
+        } else
+            secondNode->next = temp;
+
+        if (prevFirst)
+            prevFirst->next = secondNode;
+        if (prevSecond && prevSecond != firstNode)
+            prevSecond->next = firstNode;
+
+        if (!prevFirst)
+            head = secondNode;
+        if (!prevSecond)
+            head = firstNode;
 
         if (firstNode == tail) {
             tail = secondNode;
-            secondNode->next=head;
         } else if (secondNode == tail) {
             tail = firstNode;
-            firstNode->next=head;
         }
+        tail->next = head;
     }
+
 
     T retrieveAt(int index) const {
         if (index < 0 || index >= size) {
@@ -192,28 +197,28 @@ public:
             return T();
         }
 
-        Node* currentNode = head;
+        Node *currentNode = head;
         for (int i = 0; i < index; ++i) {
             currentNode = currentNode->next;
         }
         return currentNode->data;
     }
 
-    void replaceAt(const T& newElement, int index) {
+    void replaceAt(const T &newElement, int index) {
         if (index < 0 || index >= size) {
             cout << "Invalid index." << endl;
             return;
         }
 
-        Node* currentNode = head;
+        Node *currentNode = head;
         for (int i = 0; i < index; ++i) {
             currentNode = currentNode->next;
         }
         currentNode->data = newElement;
     }
 
-    bool isExist(const T& element) const {
-        Node* current = head;
+    bool isExist(const T &element) const {
+        Node *current = head;
         for (int i = 0; i < size; ++i) {
             if (current->data == element) {
                 return true;
@@ -223,7 +228,7 @@ public:
         return false;
     }
 
-    bool isItemAtEqual(const T& element, int index) const {
+    bool isItemAtEqual(const T &element, int index) const {
         if (index < 0 || index >= size) {
             cout << "Invalid index." << endl;
             return false;
@@ -251,7 +256,7 @@ public:
             return;
         }
 
-        Node* current = head;
+        Node *current = head;
         for (int i = 0; i < size; ++i) {
             cout << current->data << " ";
             current = current->next;
