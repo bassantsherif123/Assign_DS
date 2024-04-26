@@ -1,0 +1,119 @@
+Algorithm: Insertion Sort
+Number of comparisons: 3
+Running Time:0.0022 milliseconds
+Ali
+3541
+3.5
+
+Mariam
+69712
+3.7
+
+Mohamed Kamal
+97848
+2.2
+
+Sara Ahmed
+78697
+3.1
+
+//_________________________________
+Algorithm: Selection Sort
+Number of comparisons: 6
+Running Time:0.0009 milliseconds
+Ali
+3541
+3.5
+
+Mariam
+69712
+3.7
+
+Mohamed Kamal
+97848
+2.2
+
+Sara Ahmed
+78697
+3.1
+
+//_________________________________
+Algorithm: Bubble Sort
+Number of comparisons: 6
+Running Time:0.0005 milliseconds
+Ali
+3541
+3.5
+
+Mariam
+69712
+3.7
+
+Mohamed Kamal
+97848
+2.2
+
+Sara Ahmed
+78697
+3.1
+
+//_________________________________
+Algorithm: Shell Sort
+Number of comparisons: 5
+Running Time:0.0008 milliseconds
+Ali
+3541
+3.5
+
+Mariam
+69712
+3.7
+
+Mohamed Kamal
+97848
+2.2
+
+Sara Ahmed
+78697
+3.1
+
+//_________________________________
+Algorithm: Merge Sort
+Number of comparisons: 8
+Running Time:0.006 milliseconds
+Ali
+3541
+3.5
+
+Mariam
+69712
+3.7
+
+Mohamed Kamal
+97848
+2.2
+
+Sara Ahmed
+78697
+3.1
+
+//_________________________________
+Algorithm: Quick Sort
+Number of comparisons: 8
+Running Time:0.0058 milliseconds
+Ali
+3541
+3.5
+
+Mariam
+69712
+3.7
+
+Mohamed Kamal
+97848
+2.2
+
+Sara Ahmed
+78697
+3.1
+
