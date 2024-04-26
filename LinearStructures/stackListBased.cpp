@@ -43,7 +43,7 @@ Stack<type>::Stack() : topNode{nullptr}, size{}
 template <typename type>
 void Stack<type>::push(type data)
 {
-    Node<type> *temp = new Node(data);
+    Node<type> *temp = new Node<type>(data);
     if (topNode)
         temp->next = topNode;
     topNode = temp;
