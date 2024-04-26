@@ -144,7 +144,7 @@ int insertionSort(vector<T> &v, bool GPA){
         T tmp = v[i];
         int j = i - 1;
         while (j >= 0 && ((GPA && tmp > v[j]) || (!GPA && tmp < v[j]))) {
-            comparisons++;
+            comparisons=+2;
             v[j + 1] = v[j];
             j--;
         }
@@ -168,7 +168,7 @@ int shellSort(vector<T>& v, bool GPA) {
             int j = i;
 
             while (j >= gap && ((GPA && tmp > v[j - gap]) || (!GPA && tmp < v[j - gap]))) {
-                comparisons++;
+                comparisons=+2;
                 v[j] = v[j - gap];
                 j -= gap;
                 if (j >= gap) comparisons++;
