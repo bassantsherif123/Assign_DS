@@ -230,6 +230,28 @@ void Merge(vector<T> &v, int begin, int middle, int end, bool GPA)
     }
 }
 
+template <class T>
+void MergeSort(vector<T> &v, int begin, int end, bool GPA)
+{
+    // Base Case
+    if (begin >= end)
+    {
+        return;
+    }
+
+    // Divide the vector
+    int middle = begin + (end - begin) / 2;
+
+    // conquer the first half
+    MergeSort(v, begin, middle, GPA);
+
+    // conquer the second half
+    MergeSort(v, middle + 1, end, GPA);
+
+    // Merge the two halves
+    Merge(v, begin, middle, end, GPA);
+}
+
 //_____________________________________
 // 6. Quicksort
 template <typename T>
@@ -267,26 +289,40 @@ void quicksort(vector<T> &arr, int low, int high, bool GPA)
     quicksort(arr, mid + 1, high, GPA);
 }
 
-template <class T>
-void MergeSort(vector<T> &v, int begin, int end, bool GPA)
-{
-    // Base Case
-    if (begin >= end)
-    {
-        return;
+//_____________________________________
+// 7. Count Sort
+void countSort(vector<int>&arr){
+    int n =arr.size();
+    int max = arr[0];
+    for(int i=0 ; i<n; i++){
+        if(arr[i]>max){
+            max=arr[i];//Get the max element in the array
+        }
     }
-
-    // Divide the vector
-    int middle = begin + (end - begin) / 2;
-
-    // conquer the first half
-    MergeSort(v, begin, middle, GPA);
-
-    // conquer the second half
-    MergeSort(v, middle + 1, end, GPA);
-
-    // Merge the two halves
-    Merge(v, begin, middle, end, GPA);
+    int countArray[max+1];
+    for(int i=0 ;i<max+1;i++){
+        countArray[i]=0;//intialize the count array with 0
+    }
+    for(int i=0;i<n;i++){
+        countArray[arr[i]]++;// count how many time the number occurred
+    }
+    int index=0;
+    for(int i=0;i<=max ;i++){//return the data sorted to the array(ascendingly)
+        while(countArray[i]>0){
+            arr[index]=i;
+            index++;
+            countArray[i]--;
+        }
+    }
+    int greater[n];
+    int x=0;
+    for(int i=n-1;i>=0;i--){
+        greater[x]=arr[i];//resort the data descindingly
+        x++;
+    }
+    for(int i=0;i<n;i++){
+        arr[i]= greater[i];//return it to the original array
+    }
 }
 
 //_____________________________________
@@ -360,146 +396,146 @@ void Sort()
         In();
         switch (SortingAlgo)
         {
-        case 1:
-            GPA << "Algorithm: Insertion Sort\n";
-            start = chrono::steady_clock::now();
-            GPA << "Number of comparisons: " << insertionSort(students, 1) << '\n';
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                << "\n";
-            OutGPA();
-            GPA << "//_________________________________\n";
+            case 1:
+                GPA << "Algorithm: Insertion Sort\n";
+                start = chrono::steady_clock::now();
+                GPA << "Number of comparisons: " << insertionSort(students, 1) << '\n';
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                    << "\n";
+                OutGPA();
+                GPA << "//_________________________________\n";
 
-            Name << "Algorithm: Insertion Sort\n";
-            start = chrono::steady_clock::now();
-            Name << "Number of comparisons: " << insertionSort(students, 0) << '\n';
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                 << "\n";
-            OutName();
-            Name << "//_________________________________\n";
-            break;
-        case 2:
-            GPA << "Algorithm: Selection Sort\n";
-            comparison = 0;
-            start = chrono::steady_clock::now();
-            selectionSort(students, 1);
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            GPA << "Number of comparisons: " << comparison << '\n';
-            GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                << "\n";
-            OutGPA();
-            GPA << "//_________________________________\n";
+                Name << "Algorithm: Insertion Sort\n";
+                start = chrono::steady_clock::now();
+                Name << "Number of comparisons: " << insertionSort(students, 0) << '\n';
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                     << "\n";
+                OutName();
+                Name << "//_________________________________\n";
+                break;
+            case 2:
+                GPA << "Algorithm: Selection Sort\n";
+                comparison = 0;
+                start = chrono::steady_clock::now();
+                selectionSort(students, 1);
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Number of comparisons: " << comparison << '\n';
+                GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                    << "\n";
+                OutGPA();
+                GPA << "//_________________________________\n";
 
-            Name << "Algorithm: Selection Sort\n";
-            comparison = 0;
-            start = chrono::steady_clock::now();
-            BubbleSort(students, 0);
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            Name << "Number of comparisons: " << comparison << '\n';
-            Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                 << "\n";
-            OutName();
-            Name << "//_________________________________\n";
-            break;
-        case 3:
-            GPA << "Algorithm: Bubble Sort\n";
-            comparison = 0;
-            start = chrono::steady_clock::now();
-            BubbleSort(students, 1);
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            GPA << "Number of comparisons: " << comparison << '\n';
-            GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                << "\n";
-            OutGPA();
-            GPA << "//_________________________________\n";
+                Name << "Algorithm: Selection Sort\n";
+                comparison = 0;
+                start = chrono::steady_clock::now();
+                BubbleSort(students, 0);
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Number of comparisons: " << comparison << '\n';
+                Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                     << "\n";
+                OutName();
+                Name << "//_________________________________\n";
+                break;
+            case 3:
+                GPA << "Algorithm: Bubble Sort\n";
+                comparison = 0;
+                start = chrono::steady_clock::now();
+                BubbleSort(students, 1);
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Number of comparisons: " << comparison << '\n';
+                GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                    << "\n";
+                OutGPA();
+                GPA << "//_________________________________\n";
 
-            Name << "Algorithm: Bubble Sort\n";
-            comparison = 0;
-            start = chrono::steady_clock::now();
-            BubbleSort(students, 0);
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            Name << "Number of comparisons: " << comparison << '\n';
-            Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                 << "\n";
-            OutName();
-            Name << "//_________________________________\n";
-            break;
-        case 4:
-            GPA << "Algorithm: Shell Sort\n";
-            start = chrono::steady_clock::now();
-            GPA << "Number of comparisons: " << shellSort(students, 1) << '\n';
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                << "\n";
-            OutGPA();
-            GPA << "//_________________________________\n";
+                Name << "Algorithm: Bubble Sort\n";
+                comparison = 0;
+                start = chrono::steady_clock::now();
+                BubbleSort(students, 0);
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Number of comparisons: " << comparison << '\n';
+                Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                     << "\n";
+                OutName();
+                Name << "//_________________________________\n";
+                break;
+            case 4:
+                GPA << "Algorithm: Shell Sort\n";
+                start = chrono::steady_clock::now();
+                GPA << "Number of comparisons: " << shellSort(students, 1) << '\n';
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                    << "\n";
+                OutGPA();
+                GPA << "//_________________________________\n";
 
-            Name << "Algorithm: Shell Sort\n";
-            start = chrono::steady_clock::now();
-            Name << "Number of comparisons: " << shellSort(students, 0) << '\n';
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                 << "\n";
-            OutName();
-            Name << "//_________________________________\n";
-            break;
-        case 5:
-            GPA << "Algorithm: Merge Sort\n";
-            comparison = 0;
-            start = chrono::steady_clock::now();
-            MergeSort(students, 0, students.size() - 1, 1);
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            GPA << "Number of comparisons: " << comparison << '\n';
-            GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                << "\n";
-            OutGPA();
-            GPA << "//_________________________________\n";
+                Name << "Algorithm: Shell Sort\n";
+                start = chrono::steady_clock::now();
+                Name << "Number of comparisons: " << shellSort(students, 0) << '\n';
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                     << "\n";
+                OutName();
+                Name << "//_________________________________\n";
+                break;
+            case 5:
+                GPA << "Algorithm: Merge Sort\n";
+                comparison = 0;
+                start = chrono::steady_clock::now();
+                MergeSort(students, 0, students.size() - 1, 1);
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Number of comparisons: " << comparison << '\n';
+                GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                    << "\n";
+                OutGPA();
+                GPA << "//_________________________________\n";
 
-            Name << "Algorithm: Merge Sort\n";
-            comparison = 0;
-            start = chrono::steady_clock::now();
-            MergeSort(students, 0, students.size() - 1, 0);
-            Name << "Number of comparisons: " << comparison << '\n';
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                 << "\n";
-            OutName();
-            Name << "//_________________________________\n";
-            break;
-        case 6:
-            GPA << "Algorithm: Quick Sort\n";
-            comparison = 0;
-            start = chrono::steady_clock::now();
-            quicksort(students, 0, students.size() - 1, 1);
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            GPA << "Number of comparisons: " << comparison << '\n';
-            GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                << "\n";
-            OutGPA();
+                Name << "Algorithm: Merge Sort\n";
+                comparison = 0;
+                start = chrono::steady_clock::now();
+                MergeSort(students, 0, students.size() - 1, 0);
+                Name << "Number of comparisons: " << comparison << '\n';
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                     << "\n";
+                OutName();
+                Name << "//_________________________________\n";
+                break;
+            case 6:
+                GPA << "Algorithm: Quick Sort\n";
+                comparison = 0;
+                start = chrono::steady_clock::now();
+                quicksort(students, 0, students.size() - 1, 1);
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                GPA << "Number of comparisons: " << comparison << '\n';
+                GPA << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                    << "\n";
+                OutGPA();
 
-            Name << "Algorithm: Quick Sort\n";
-            comparison = 0;
-            start = chrono::steady_clock::now();
-            MergeSort(students, 0, students.size() - 1, 0);
-            Name << "Number of comparisons: " << comparison << '\n';
-            end = chrono::steady_clock::now();
-            RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
-            Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
-                 << "\n";
-            OutName();
-            break;
+                Name << "Algorithm: Quick Sort\n";
+                comparison = 0;
+                start = chrono::steady_clock::now();
+                MergeSort(students, 0, students.size() - 1, 0);
+                Name << "Number of comparisons: " << comparison << '\n';
+                end = chrono::steady_clock::now();
+                RunningTime = chrono::duration_cast<std::chrono::nanoseconds>(end - start);
+                Name << "Running Time:" << RunningTime.count() / 1000000.0 << " milliseconds"
+                     << "\n";
+                OutName();
+                break;
         }
 
         // Break when SortingAlgo is 6 as it reached last sorting algorithm
