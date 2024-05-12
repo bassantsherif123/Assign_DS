@@ -15,3 +15,14 @@
 3. Circular Linked List
 4. Stack
 5. Queue
+
+# Assign2_DS
+
+## Non-Linear Structures:
+1. Binary Search Trees (BST)
+   > Node Based
+2. Heaps
+   > Array Based
+   -> Min Heap, Max Heap and Heap sort
+3. AVL Trees
+   > Node Based 
