@@ -18,7 +18,7 @@ class BST{
 public:
     BST(): root(nullptr) {}
     void add(Item x, bool price);
-    void remove(Item x);
+    void remove(Item x, bool price);
     bool search(Item x);
     int length();
     bool isEmpty();
@@ -176,7 +176,7 @@ void BST::removeNode(BST::Node *&n) {
     }
 }
 
-void BST::remove(Item x) {
+void BST::remove(Item x, bool price) {
     Node *parent, *current;
     bool found = false;
 
@@ -206,7 +206,10 @@ void BST::remove(Item x) {
     }
 
     if (current == nullptr) {
-        cout << "Couldn't find the item you want to delete in the tree.\n";
+        if (price) {
+            // Show not found message
+            cout << "Couldn't find the item you want to delete in the tree.\n";
+        }
     }
     else if (found) {
         // remove the node after finding it
