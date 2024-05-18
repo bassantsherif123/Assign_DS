@@ -79,7 +79,7 @@ public:
         }
     }
 
-    void sortPrice(int choice) {//take the choice of the user of how he wants to arrange and then send it to the sorting function 
+    void sortItem(int choice) {//take the choice of the user of how he wants to arrange and then send it to the sorting function 
         vector<Item> copy;
         copy = items;
         heapSort(copy,copy.size(),choice);
