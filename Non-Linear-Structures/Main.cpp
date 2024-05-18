@@ -183,16 +183,16 @@ void Non_Linear()
                         x.displayItems();
                         break;
                     case 4:
-                        x.sortPrice(3);
+                        x.sortItem(3);
                         break;
                     case 5:
-                        x.sortPrice(4);
+                        x.sortItem(4);
                         break;
                     case 6:
-                        x.sortPrice(1);
+                        x.sortItem(1);
                         break;
                     case 7:
-                        x.sortPrice(2);
+                        x.sortItem(2);
                         break;
                     default:
                         cout << "Your choice doesn't exist in the menu.\n";
