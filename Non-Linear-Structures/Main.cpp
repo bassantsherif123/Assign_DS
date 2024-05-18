@@ -74,18 +74,16 @@ void Non_Linear()
     ifstream Input("../input.txt");
     readItems(Input);
 
-    int ChooseStruct = -1, ChooseOp;
+    int ChooseStruct , ChooseOp;
+    
+    // Call Menu function to show the menu
+    menu();
 
-    while (ChooseStruct != 0)
+    // let user choose from the previous menu
+    while (cin >> ChooseStruct, ChooseStruct != 0)
     {
-        // Call Menu function to show the menu
-        menu();
-
-        // let user choose from the previous menu
-        cin >> ChooseStruct;
-
         // if the user's choice is not in the menu the program will give an error message and loop again until user enter a valid choice
-        while (ChooseStruct != 1 && ChooseStruct != 2 && ChooseStruct != 3)
+        while (ChooseStruct < 0 || ChooseStruct > 3)
         {
             cout << "Your choice doesn't exist in the menu.\n";
             menu();
@@ -95,6 +93,7 @@ void Non_Linear()
         // Goes to the case according to user's choice
         if (ChooseStruct == 1)
         {
+            cout << "_BST_\n";
             string x, y;
             int z;
             // one tree sort data according to name and the other according to name
@@ -120,8 +119,8 @@ void Non_Linear()
                     case 2:
                         cout << "Enter the item details in the corresponding order\n(Name, Category, Price):\n";
                         cin >> x >> y >> z;
-                        tName.remove(Item(x, y, z));
-                        tPrice.remove(Item(x, y, z));
+                        tName.remove(Item(x, y, z), false);
+                        tPrice.remove(Item(x, y, z), true);
                         break;
                     case 3:
                         tName.displayNormally();
@@ -149,6 +148,7 @@ void Non_Linear()
         }
         else if (ChooseStruct == 2)
         {
+            cout << "_Heap_\n";
             heap x;
             for (auto &item : items)
             {
@@ -203,6 +203,7 @@ void Non_Linear()
         }
         else if (ChooseStruct == 3)
         {
+            cout << "_AVL Tree_\n";
             AVLTree<Item> avlTree;
             for (auto &item : items)
             {
@@ -262,5 +263,8 @@ void Non_Linear()
         {
             break;
         }
+
+        // Show menu again
+        menu();
     }
 }
