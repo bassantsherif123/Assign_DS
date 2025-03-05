@@ -1,4 +1,4 @@
-# Assign1_DS
+# Assignment1
 
 ## Sorting Algorithms:
 1. Insertion Sort 
@@ -16,7 +16,7 @@
 4. Stack
 5. Queue
 
-# Assign2_DS
+# Assignment2
 
 ## Non-Linear Structures:
 1. Binary Search Trees (BST)
